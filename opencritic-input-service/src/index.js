@@ -61,6 +61,10 @@ module.exports = async () => {
   // add worker to specific topic
   await runner.subscribe('opencritic', async (data, reply) => {
     logger.info('Getting reviews for:', data);
+    if (typeof data !== 'object' || !data.game || !data.game.length) {
+      logger.error('Cannot get game info for:', data);
+      return;
+    }
     const store = review => reply('store', review);
     scrapeReviews(data, store);
   });

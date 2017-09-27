@@ -75,6 +75,14 @@ test.test('# OpenCritic input service', it => {
     })();
   });
 
+  it.test('Should not fail to process broken game', t => {
+    (async () => {
+      // send message to workers
+      await testMaster.send('opencritic', 'asd');
+      t.end();
+    })();
+  });
+
   it.test('Should cleanup', t => {
     cleanup();
     testMaster.stop();
