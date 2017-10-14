@@ -13,7 +13,7 @@ Enrichment:
 - Wikidata links - ?
 
 Utility:
-- Storage - hub microservice
+- `storage-service` - storage and processing management microservice
 
 Output:
 - REST API
