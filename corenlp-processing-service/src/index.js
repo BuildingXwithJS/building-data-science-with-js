@@ -22,16 +22,16 @@ module.exports = async () =>
       }
 
       // get text from data
-      const {id, text} = data;
+      const {_id, text} = data;
 
       // do not process articles without IDs and text
-      if (!text || !id) {
+      if (!text || !_id) {
         done();
         return;
       }
       // run corenlp
       const result = await sentiments(text);
       // return result
-      done(null, {id, ...result});
+      done(null, {_id, ...result});
     },
   });

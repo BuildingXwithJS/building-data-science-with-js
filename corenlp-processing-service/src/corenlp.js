@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 const serviceConfig = require('../config');
 
 // corenlp params
-const queryString = 'properties={"annotators": "tokenize,ssplit,sentiment"}&pipelineLanguage=en';
+const queryString = 'properties={"timeout": "120000", "annotators": "tokenize,ssplit,sentiment"}&pipelineLanguage=en';
 
 exports.sentiments = async text => {
   const url = `${serviceConfig.corenlp.url}?${encodeURIComponent(queryString)}`;
