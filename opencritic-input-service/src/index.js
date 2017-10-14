@@ -27,7 +27,15 @@ const getExGameData = async gameData => {
 };
 
 const enrichReviewWithText = async review => {
-  const pageHTML = await fetch(review.externalUrl).then(r => r.text());
+  const pageHTML = await fetch(review.externalUrl)
+    .then(r => r.text())
+    .catch(e => {
+      logger.error('Error fetching review:', review.externalUrl, e);
+      return undefined;
+    });
+  if (!pageHTML) {
+    return review;
+  }
   const result = await extractor(pageHTML);
   if (!result.text || !result.text.length) {
     const $ = cheerio.load(pageHTML);
