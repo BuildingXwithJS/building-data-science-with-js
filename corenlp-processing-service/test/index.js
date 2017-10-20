@@ -34,9 +34,9 @@ test.test('# CoreNLP processing service', it => {
     (async () => {
       // listen for reply from workers
       await testMaster.subscribe(
-        'store',
+        'update',
         data => {
-          t.equal(data.id, inputData.id, 'Has correct id');
+          t.equal(data._id, inputData._id, 'Has correct id');
           t.equal(data.totalSentimentValue, 1, 'Has correct total sentiment value');
           t.equal(data.totalSentiment, 'Negative', 'Has correct total sentiment string');
           t.equal(data.sentiments.length, 44, 'Has correct sentence count');
