@@ -11,6 +11,7 @@ Processing:
 
 Enrichment:
 - Wikidata links - ?
+- DBpedia info
 
 Utility:
 - `storage-service` - storage and processing management microservice
