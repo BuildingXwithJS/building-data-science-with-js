@@ -1,0 +1,23 @@
+{
+  "name": "summary-processing-service",
+  "version": "0.1.0",
+  "description": "Summary generation processing microservice",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "NODE_ENV=test tap --reporter=spec ./test/index.js",
+    "rabbit:start": "docker run -d --name ds-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:management",
+    "rabbit:clean": "docker stop ds-rabbit && docker rm ds-rabbit"
+  },
+  "keywords": [],
+  "author": "Tim Ermilov <yamalight@gmail.com> (http://codezen.net)",
+  "license": "ISC",
+  "dependencies": {
+    "microcore": "^0.1.0",
+    "node-summary": "1.1.0"
+  },
+  "devDependencies": {
+    "microwork": "^0.12.1",
+    "tap": "^10.7.2"
+  }
+}

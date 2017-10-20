@@ -6,8 +6,8 @@ Inputs:
 Processing:
 - `corenlp-processing-service` - processing service that calculates sentiments for given article using CoreNLP
 - Entitiy Extraction - FOX
-- Keywords - ?
-- Summary - ?
+- `keywords-processing-service` - processing service that calculates keywords and keyphrases for given article using retext module
+- `summary-processing-service` - processing service that generates summary for given article using node-summary module
 
 Enrichment:
 - Wikidata links - ?
