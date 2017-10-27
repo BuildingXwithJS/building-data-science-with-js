@@ -32,14 +32,13 @@ module.exports = async () => {
     'store',
     async (data, send) => {
       logger.info('Saving new document:', data.id);
-      // TODO: handle same doc exceptions
       try {
         // create new mongo doc
         const article = new Article(data);
         await article.save();
         // save to processors
-        processors.forEach(p => {
-          logger.debug('Sending article to:', p.ID);
+        processors.filter(p => p.type === 'processor').forEach(p => {
+          logger.debug('Sending article to processor:', p.ID);
           send(p.ID, article.toObject());
         });
       } catch (e) {
@@ -58,11 +57,27 @@ module.exports = async () => {
   // listen for update requests
   await runner.subscribe(
     'update',
-    async data => {
+    async (data, send) => {
       logger.info('Updating document:', data._id);
       await Article.findByIdAndUpdate(data._id, data);
-      logger.debug('Updated article:', data._id);
-      // TODO: send for enrichment
+      const updatedDoc = await Article.findById(data._id);
+      logger.debug('Updated article:', updatedDoc._id);
+      // send for enrichment
+      processors.filter(p => p.type === 'enrichment').forEach(p => {
+        logger.debug('Sending article to enrichment:', p.ID);
+        send(p.ID, updatedDoc.toObject());
+      });
+    },
+    queueConfig
+  );
+
+  // listen for update requests
+  await runner.subscribe(
+    'enrich',
+    async data => {
+      logger.info('Enrich document:', data._id);
+      await Article.findByIdAndUpdate(data._id, data);
+      logger.debug('Enriched article:', data._id);
     },
     queueConfig
   );

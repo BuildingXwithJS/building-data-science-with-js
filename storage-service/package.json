@@ -10,7 +10,8 @@
     "rabbit:clean": "docker stop ds-rabbit && docker rm ds-rabbit",
     "mongo:start": "docker run --name ds-mongo -p 27017:27017 -d mongo",
     "mongo:volume": "docker run --name ds-mongo -v `pwd`/db:/data/db -p 27017:27017 -d mongo",
-    "mongo:clean": "docker stop ds-mongo && docker rm ds-mongo"
+    "mongo:clean": "docker stop ds-mongo && docker rm ds-mongo",
+    "svc:restart": "yarn rabbit:clean && yarn mongo:clean && yarn rabbit:start && yarn mongo:start"
   },
   "keywords": [],
   "author": "Tim Ermilov <yamalight@gmail.com> (http://codezen.net)",

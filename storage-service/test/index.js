@@ -12,7 +12,8 @@ const {Article} = require('../src/db');
 const inputData = JSON.parse(
   fs.readFileSync(path.join(__dirname, '..', '..', 'fixtures', 'input-article.json')).toString()
 );
-const testProcessor = {ID: 'testprocessor'};
+const testProcessor = {ID: 'testprocessor', type: 'processor'};
+const testEnrichment = {ID: 'testenrichment', type: 'enrichment'};
 
 // sleep fn
 const sleep = t => new Promise(r => setTimeout(r, t));
@@ -35,6 +36,7 @@ test.test('# Storage service', it => {
     (async () => {
       // send message to workers
       await testMaster.send('microcore.service', testProcessor);
+      await testMaster.send('microcore.service', testEnrichment);
       await sleep(500);
       t.end();
     })();
@@ -75,13 +77,28 @@ test.test('# Storage service', it => {
   it.test('Should update simple article', t => {
     (async () => {
       // send message to workers
+      await testMaster.subscribe(testEnrichment.ID, async data => {
+        const articles = await Article.find();
+        t.equal(articles.length, 1, 'Should have 1 article');
+        const article = articles[0].toObject();
+        t.equal(article.id, inputData.id, 'Should have correct article id');
+        t.ok(article.updated, 'Should have be updated');
+        t.ok(data.updated, 'Should have actual data');
+        t.end();
+      });
       await testMaster.send('update', {_id: savedArticle, updated: true});
+    })();
+  });
+
+  it.test('Should enrich article', t => {
+    (async () => {
+      // send message to workers
+      await testMaster.send('enrich', {_id: savedArticle, enriched: true});
       await sleep(500);
       const articles = await Article.find();
       t.equal(articles.length, 1, 'Should have 1 article');
       const article = articles[0].toObject();
-      t.equal(article.id, inputData.id, 'Should have correct article id');
-      t.ok(article.updated, 'Should have be updated');
+      t.ok(article.enriched, 'Should have enriched article');
       t.end();
     })();
   });
