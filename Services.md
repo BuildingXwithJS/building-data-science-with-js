@@ -10,8 +10,7 @@ Processing:
 - `summary-processing-service` - processing service that generates summary for given article using node-summary module
 
 Enrichment:
-- Wikidata links - ?
-- DBpedia info
+- `dbpedia-enrichment-service` - enrichment service that finds basic info for all extracted entities that are linked to DBpedia.
 
 Utility:
 - `storage-service` - storage and processing management microservice

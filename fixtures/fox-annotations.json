@@ -1,0 +1,28 @@
+{
+  "locations": [
+    {
+      "name": "Europe",
+      "url": "http://dbpedia.org/resource/Europe"
+    },
+    {
+      "name": "Earth",
+      "url": "http://dbpedia.org/resource/Earth"
+    }
+  ],
+  "organizations": [
+    {
+      "name": "Red Legion",
+      "url": "http://aksw.org/notInWiki/RedLegion"
+    }
+  ],
+  "people": [
+    {
+      "name": "Bungie",
+      "url": "http://dbpedia.org/resource/Bungie"
+    },
+    {
+      "name": "Gina Torres",
+      "url": "http://dbpedia.org/resource/Gina_Torres"
+    }
+  ]
+}
