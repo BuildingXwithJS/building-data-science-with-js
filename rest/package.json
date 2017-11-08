@@ -5,13 +5,18 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "mongo:volume": "docker run --name ds-mongo -v `pwd`/../fixtures/db:/data/db -p 27017:27017 -d mongo"
+    "mongo:volume": "docker run --name ds-mongo -v `pwd`/../fixtures/db:/data/db -p 27017:27017 -d mongo",
+    "mongo:clean": "docker stop ds-mongo && docker rm ds-mongo",
+    "rabbit:start": "docker run -d --name ds-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:management",
+    "rabbit:clean": "docker stop ds-rabbit && docker rm ds-rabbit"
   },
   "keywords": [],
   "author": "Tim Ermilov <yamalight@gmail.com> (http://codezen.net)",
   "license": "MIT",
   "dependencies": {
     "fastify": "^0.33.0",
-    "mongoose": "^4.13.0"
+    "microwork": "^0.12.1",
+    "mongoose": "^4.13.0",
+    "node-fetch": "^1.7.3"
   }
 }
