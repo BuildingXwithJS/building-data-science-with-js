@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:carbon
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app

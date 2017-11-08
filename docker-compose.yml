@@ -1,0 +1,75 @@
+version: "2"
+services:
+  # PROCESSING SERVICES
+
+  # corenlp processing service
+  corenlpsvc:
+    build: ./corenlp-processing-service
+    environment:
+      - RABBIT_HOST=rabbit
+      - CORENLP_URL=http://corenlp:9000
+
+  # fox processing service
+  foxsvc:
+    build: ./fox-processing-service
+    environment:
+      - RABBIT_HOST=rabbit
+      - FOX_URL=http://fox:4444/fox
+
+  # keywords processing service
+  keywords:
+    build: ./keywords-processing-service
+    environment:
+      - RABBIT_HOST=rabbit
+
+  # summary processing service
+  summary:
+    build: ./summary-processing-service
+    environment:
+      - RABBIT_HOST=rabbit
+
+  # dbpedia enrichment service
+  dbpedia:
+    build: ./dbpedia-enrichment-service
+    environment:
+      - RABBIT_HOST=rabbit
+
+  # STORAGE SERVICES
+
+  storage:
+    build: ./storage-service
+    ports:
+      - 27017:27017
+    environment:
+      - RABBIT_HOST=rabbit
+      - MONGO_URL=mongodb://mongo/datascience
+
+  # INPUT SERVICES
+
+  opencritic:
+    build: ./opencritic-input-service
+    environment:
+      - RABBIT_HOST=rabbit
+
+  # SUPPLEMENTARY SERVICE
+
+  # rabbitmq daemon
+  rabbit:
+    image: rabbitmq:management
+    ports:
+      - 15672:15672
+      - 5672:5672
+
+  # mongodb daemon
+  mongo:
+    image: mongo
+    volumes:
+      - ./fixtures/db:/data/db
+
+  # corenlp daemon
+  corenlp:
+    image: konradstrack/corenlp
+
+  # fox daemon
+  fox:
+    image: dicegroup/fox:en
