@@ -1,3 +1,4 @@
 node_modules
 t.js
 fixtures/db/
+.nuxt

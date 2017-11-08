@@ -1,0 +1,16 @@
+{
+  "name": "ui",
+  "version": "1.0.0",
+  "description": "Data Science UI project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "PORT=8080 nuxt"
+  },
+  "keywords": [],
+  "author": "Tim Ermilov <yamalight@gmail.com> (http://codezen.net)",
+  "license": "MIT",
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "nuxt": "^1.0.0-rc11"
+  }
+}
