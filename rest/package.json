@@ -1,0 +1,17 @@
+{
+  "name": "rest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "mongo:volume": "docker run --name ds-mongo -v `pwd`/../fixtures/db:/data/db -p 27017:27017 -d mongo"
+  },
+  "keywords": [],
+  "author": "Tim Ermilov <yamalight@gmail.com> (http://codezen.net)",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^0.33.0",
+    "mongoose": "^4.13.0"
+  }
+}
