@@ -2,6 +2,7 @@
 const Microwork = require('microwork');
 
 // our packages
+const config = require('../config');
 const {connectedToDB, db, Article} = require('./db');
 const logger = require('./logger');
 
@@ -15,7 +16,7 @@ module.exports = async () => {
   // wait for db connection
   await connectedToDB;
   // create task runner
-  const runner = new Microwork({host: 'localhost', exchange: 'datascience'});
+  const runner = new Microwork(config.rabbit);
   // listen for processors info
   await runner.subscribe('microcore.service', serviceInfo => {
     // check if processor already saved

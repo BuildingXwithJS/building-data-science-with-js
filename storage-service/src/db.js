@@ -4,8 +4,11 @@ const mongoose = require('mongoose');
 // Use native promises
 mongoose.Promise = global.Promise;
 
+// our packages
+const config = require('../config');
+
 // create connection
-const db = mongoose.createConnection('mongodb://localhost/datascience');
+const db = mongoose.createConnection(config.mongoUrl);
 
 // create article schema
 const ArticleSchema = new mongoose.Schema(
