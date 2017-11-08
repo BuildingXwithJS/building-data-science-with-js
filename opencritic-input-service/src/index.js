@@ -5,6 +5,7 @@ const extractor = require('unfluff');
 const cheerio = require('cheerio');
 
 // our packages
+const config = require('../config');
 const logger = require('./logger');
 
 // config vars
@@ -65,15 +66,15 @@ const scrapeReviews = async (data, store) => {
 
 module.exports = async () => {
   // create task runner
-  const runner = new Microwork({host: 'localhost', exchange: 'datascience'});
+  const runner = new Microwork(config.rabbit);
   // add worker to specific topic
-  await runner.subscribe('opencritic', async (data, reply) => {
+  await runner.subscribe(config.ID, async (data, reply) => {
     logger.info('Getting reviews for:', data);
     if (typeof data !== 'object' || !data.game || !data.game.length) {
       logger.error('Cannot get game info for:', data);
       return;
     }
-    const store = review => reply('store', review);
+    const store = review => reply(config.resultKey, review);
     scrapeReviews(data, store);
   });
   // return teardown
