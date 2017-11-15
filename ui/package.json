@@ -10,7 +10,10 @@
   "author": "Tim Ermilov <yamalight@gmail.com> (http://codezen.net)",
   "license": "MIT",
   "dependencies": {
+    "d3": "3",
+    "d3-cloud": "^1.2.4",
     "isomorphic-fetch": "^2.2.1",
-    "nuxt": "^1.0.0-rc11"
+    "nuxt": "^1.0.0-rc11",
+    "vue-async-computed": "^3.3.1"
   }
 }

@@ -1,25 +1,38 @@
 <template>
   <div>
-    <h1>Hello {{ name }}!</h1>
+    <input type="text" placeholder="Find game" v-model="value" @keyup.enter="findGame()">
     <ul>
-      <li v-for="article in data" v-bind:key="article._id">
-        <a v-bind:href="article.externalUrl">{{ article.title }}</a>
+      <li v-for="game in games" :key="game.id">
+        <router-link v-bind:to=" '/game/' + game.id ">{{ game.name }}</router-link>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import 'isomorphic-fetch';
+import Vue from 'vue';
 
 export default {
-  async asyncData(context) {
-    const data = await fetch('http://localhost:3000/game/4139').then(s => s.json());
-    // called every time before loading the component
-    return {name: 'World', data};
+  data() {
+    return {
+      value: '',
+      games: [],
+    };
   },
-  // and more functionality to discover
-  // ...
+  methods: {
+    async findGame() {
+      if (!this.value || this.value.length < 3) {
+        return;
+      }
+      this.games = await fetch('http://localhost:3000/search', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({name: this.value}),
+      }).then(s => s.json());
+    },
+  },
 };
 </script>
 
