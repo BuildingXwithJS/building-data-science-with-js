@@ -18,6 +18,7 @@ const fieldsToTake = {
   people: 1,
   totalSentimentValue: 1,
   totalSentiment: 1,
+  score: 1,
 };
 
 module.exports = (fastify, options, next) => {
