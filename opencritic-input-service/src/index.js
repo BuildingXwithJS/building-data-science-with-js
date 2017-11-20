@@ -47,9 +47,14 @@ const enrichReviewWithText = async review => {
 };
 
 const scrapeReviews = async (data, store) => {
-  const {game} = data;
+  const {game, id} = data;
   logger.debug('Searching for:', game);
-  const gameData = await getGame(game);
+  let gameData = {};
+  if (!id) {
+    gameData = await getGame(game);
+  } else {
+    gameData = {id};
+  }
   logger.debug('Got game data:', gameData);
   const exGameData = await getExGameData(gameData);
   logger.debug('Got extended game data:', exGameData);
@@ -70,7 +75,7 @@ module.exports = async () => {
   // add worker to specific topic
   await runner.subscribe(config.ID, async (data, reply) => {
     logger.info('Getting reviews for:', data);
-    if (typeof data !== 'object' || !data.game || !data.game.length) {
+    if (typeof data !== 'object' || (!data.game && !data.game.length) || (!data.id && !data.id.length)) {
       logger.error('Cannot get game info for:', data);
       return;
     }

@@ -1,4 +1,5 @@
 const {Article} = require('../db');
+const rmq = require('../rmq');
 
 const fieldsToTake = {
   id: 1,
@@ -25,7 +26,16 @@ module.exports = (fastify, options, next) => {
   fastify.get('/game/:id', async req => {
     const {params: {id}} = req;
     const articles = await Article.find({GameId: id}, fieldsToTake);
-    return articles;
+
+    // if there's any info - send it back to client
+    if (articles.length > 0) {
+      return {status: 'done', articles};
+    }
+
+    // otherwise - request processing
+    await rmq.send('opencritic', {id});
+    // and tell client work is still going
+    return {status: 'working'};
   });
   next();
 };
