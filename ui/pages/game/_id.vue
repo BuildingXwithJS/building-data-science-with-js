@@ -1,7 +1,13 @@
 <template>
-  <div v-if="data && data.length > 0">
-    <wordcloud :data="data"></wordcloud>
-    <scorechart :data="data"></scorechart>
+  <div>
+    <div v-if="data && data.status !== 'done'">
+      This game is still processing, please come back later..
+    </div>
+    <div v-if="data && data.status === 'done' && data.articles && data.articles.length > 0">
+      <h1>{{ gameName }}</h1>
+      <wordcloud :data="data.articles"></wordcloud>
+      <scorechart :data="data.articles"></scorechart>
+    </div>
   </div>
 </template>
 
@@ -21,6 +27,7 @@ export default {
   data() {
     return {
       gameId: this.$route.params.id,
+      gameName: this.$route.query.name,
     };
   },
   asyncComputed: {

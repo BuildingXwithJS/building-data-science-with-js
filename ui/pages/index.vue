@@ -3,7 +3,7 @@
     <input type="text" placeholder="Find game" v-model="value" @keyup.enter="findGame()">
     <ul>
       <li v-for="game in games" :key="game.id">
-        <router-link v-bind:to=" '/game/' + game.id ">{{ game.name }}</router-link>
+        <router-link v-bind:to=" '/game/' + game.id + '?name=' + game.name ">{{ game.name }}</router-link>
       </li>
     </ul>
   </div>
