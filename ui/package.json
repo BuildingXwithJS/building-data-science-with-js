@@ -4,7 +4,9 @@
   "description": "Data Science UI project",
   "main": "index.js",
   "scripts": {
-    "dev": "PORT=8080 nuxt"
+    "dev": "PORT=8080 nuxt",
+    "build": "nuxt build",
+    "start": "HOST=0.0.0.0 PORT=3000 nuxt start"
   },
   "keywords": [],
   "author": "Tim Ermilov <yamalight@gmail.com> (http://codezen.net)",

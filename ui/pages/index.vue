@@ -24,7 +24,7 @@ export default {
       if (!this.value || this.value.length < 3) {
         return;
       }
-      this.games = await fetch('http://localhost:3000/search', {
+      this.games = await fetch(`${process.env.baseUrl}/search`, {
         headers: {
           'Content-Type': 'application/json',
         },

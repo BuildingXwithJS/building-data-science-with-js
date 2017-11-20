@@ -1,5 +1,7 @@
 const Microwork = require('microwork');
 
-const master = new Microwork({host: 'localhost', exchange: 'datascience'});
+const config = require('../../config');
+
+const master = new Microwork(config.rabbit);
 
 module.exports = master;

@@ -32,7 +32,7 @@ export default {
   },
   asyncComputed: {
     async data() {
-      return await fetch(`http://localhost:3000/game/${this.gameId}`).then(s => s.json());
+      return await fetch(`${process.env.baseUrl}/game/${this.gameId}`).then(s => s.json());
     },
   },
   components: {

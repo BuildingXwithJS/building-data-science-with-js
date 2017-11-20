@@ -51,6 +51,24 @@ services:
     environment:
       - RABBIT_HOST=rabbit
 
+  # USER-FACING SERVICES
+
+  rest:
+    build: ./rest
+    environment:
+      - RABBIT_HOST=rabbit
+      - MONGO_URL=mongodb://mongo/datascience
+    ports:
+      - 3000:3000
+
+  ui:
+    build:
+      context: ./ui
+      args:
+        REST_URL: 'http://localhost:3000'
+    ports:
+      - 8080:3000
+
   # SUPPLEMENTARY SERVICE
 
   # rabbitmq daemon
