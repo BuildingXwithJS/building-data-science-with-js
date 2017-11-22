@@ -16,5 +16,5 @@ Utility:
 - `storage-service` - storage and processing management microservice
 
 Output:
-- REST API
-- UI
+- `rest` - Fastify based REST API for access to data
+- `ui` - Vue.js and Nuxt.js based UI
