@@ -11,7 +11,6 @@ const chartConfig = {
 };
 
 const color = sentiment => {
-  console.log(sentiment);
   if (sentiment === 'Negative') {
     return 'red';
   }

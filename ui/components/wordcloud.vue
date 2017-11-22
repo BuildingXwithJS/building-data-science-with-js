@@ -77,7 +77,7 @@ export default {
 
     const layout = cloud()
       .size([wordCloudConfig.width, wordCloudConfig.height])
-      .words(topWords.map(d => ({text: d.keyword, size: 14 + d.score, test: 'haha'})))
+      .words(topWords.map(d => ({text: d.keyword, size: 14 + d.score})))
       .padding(5)
       .rotate(function() {
         return ~~(Math.random() * 2) * 90;
